@@ -1,7 +1,8 @@
 import { ensureBundledStatusRegex, statusRegexRuntime } from './status-regex.js';
+import { getRequestHeaders } from '/script.js';
 
 (async () => {
-  const VERSION = '0.2.28';
+  const VERSION = '0.2.29';
   const MODULE_NAME = 'st_paperdoll_wardrobe';
   const EXTENSION_ROOT = new URL('.', import.meta.url).href;
   const DEFAULT_IMAGE = new URL('./assets/body/base/body_base_001.png', import.meta.url).href;
@@ -6128,12 +6129,66 @@ function openSettingsDialog() {
           <div class="stpd-actions">
             <button type="button" class="menu_button" data-stpd-action="openPanel">打开更衣室</button>
             <button type="button" class="menu_button" data-stpd-action="importPack">导入素材图包</button>
-            <button type="button" class="menu_button" data-stpd-action="checkUpdate">更新说明</button>
+            <button type="button" class="menu_button" data-stpd-action="checkUpdate">检查更新</button>
             <button type="button" class="menu_button" data-stpd-action="cleanup">清理界面</button>
           </div>
         </div>
       </div>`;
     bindExtensionSettingsPanel(box);
+  }
+
+  async function checkAndUpdateFramework(button) {
+    if (button.disabled) return;
+    const previousText = button.textContent;
+    button.disabled = true;
+    button.textContent = '正在检查…';
+    try {
+      const folder = new URL(EXTENSION_ROOT).pathname.split('/').filter(Boolean).pop();
+      if (folder !== 'paperdoll-wardrobe') throw new Error('当前扩展不是从 paperdoll-wardrobe 仓库安装的。');
+
+      const discovery = await ST_WIN.fetch('/api/extensions/discover');
+      if (!discovery.ok) throw new Error('无法读取酒馆中的扩展列表。');
+      const installed = (await discovery.json()).find(entry => entry.name === 'third-party/paperdoll-wardrobe');
+      if (!installed || !['local', 'global'].includes(installed.type)) throw new Error('酒馆中找不到纸娃娃仓库版扩展。');
+
+      const request = { extensionName: folder, global: installed.type === 'global' };
+      const callEndpoint = async endpoint => {
+        const response = await ST_WIN.fetch(`/api/extensions/${endpoint}`, {
+          method: 'POST',
+          headers: getRequestHeaders(),
+          body: JSON.stringify(request),
+        });
+        if (!response.ok) {
+          if (response.status === 403) throw new Error('当前账户没有更新此扩展的权限。');
+          throw new Error(`酒馆更新接口返回错误（${response.status}）。`);
+        }
+        return response.json();
+      };
+
+      const version = await callEndpoint('version');
+      const remote = String(version.remoteUrl || '').replace(/\.git\/?$/i, '').replace(/\/$/, '');
+      if (remote !== 'https://github.com/gqing714-lang/paperdoll-wardrobe') {
+        throw new Error('此扩展的 Git 仓库地址与纸娃娃正式仓库不一致，已停止更新。');
+      }
+      if (version.isUpToDate) {
+        ST_WIN.alert(`纸娃娃换装 v${VERSION} 已是仓库最新版本。`);
+        return;
+      }
+
+      button.textContent = '正在更新…';
+      const result = await callEndpoint('update');
+      if (result.isUpToDate) {
+        ST_WIN.alert('纸娃娃换装已是仓库最新版本。');
+      } else if (ST_WIN.confirm(`纸娃娃换装已更新到提交 ${result.shortCommitHash || '最新版本'}。现在刷新页面使更新生效吗？`)) {
+        ST_WIN.location.reload();
+      }
+    } catch (error) {
+      console.error('[纸娃娃] 更新失败：', error);
+      ST_WIN.alert(`纸娃娃换装更新失败：${error.message || '请查看酒馆终端日志。'}`);
+    } finally {
+      button.disabled = false;
+      button.textContent = previousText;
+    }
   }
 
   function bindExtensionSettingsPanel(box) {
@@ -6224,9 +6279,7 @@ function openSettingsDialog() {
           renderExtensionSettingsPanel();
         }
         if (action === 'cleanup') cleanup();
-        if (action === 'checkUpdate') alert(`纸娃娃换装框架版本 v${VERSION}
-仓库地址：https://github.com/gqing714-lang/paperdoll-wardrobe
-如需检查和安装更新，请使用 SillyTavern「扩展 → 管理扩展」中的更新功能。`);
+        if (action === 'checkUpdate') await checkAndUpdateFramework(btn);
       };
     });
   }
