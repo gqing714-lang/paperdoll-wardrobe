@@ -2,7 +2,7 @@ import { ensureBundledStatusRegex, statusRegexRuntime } from './status-regex.js'
 import { getRequestHeaders } from '/script.js';
 
 (async () => {
-  const VERSION = '0.2.30';
+  const VERSION = '0.2.31';
   const MODULE_NAME = 'st_paperdoll_wardrobe';
   const EXTENSION_ROOT = new URL('.', import.meta.url).href;
   const DEFAULT_IMAGE = new URL('./assets/body/base/body_base_001.png', import.meta.url).href;
@@ -73,14 +73,14 @@ import { getRequestHeaders } from '/script.js';
 - 花括号内列出局部范围的基底，默认只使用这些真实范围，不要自动追加“整体”；范围名必须逐字复制，多个染色项以半角分号分隔。
 - 只有正文明确改变了整件基底的统一底色时，局部范围基底才使用“整体=#RRGGBB”；除非正文同时明确了整体底色与局部颜色，否则不要混用整体和局部。
 - “区域”“基底”“新名称”“范围”“染色范围”均为说明词，不得作为字段值原样输出。
-- 色值为六位 RGB，脚本会将其作为覆盖图层的颜色应用到黑白原稿；无需根据灰度底图预先提亮。每件一行；每轮至多三件；标签内不写解释。
+- 色值为六位 RGB，脚本会将其作为覆盖图层的颜色应用到黑白原稿；无需根据灰度底图预先提亮。每件一行；每轮至多四件；标签内不写解释。
 - 新名称可以自然命名，但不得暗示基底不具备的材质、版型、长度、图案或结构。
 - 仅穿上已有款：不输出 <新衣服>。
 - 新款已穿上：随后 <user状态> 使用新名称；仅获得未穿：不改变穿戴状态。
 - 无有效新款：省略整个标签。
 - 无法由现有部件染色表现的衣物可以写入正文，但不得伪造结构化指令。`;
 
-  const MAX_AI_GENERATED_WARDROBE_ITEMS = 3;
+  const MAX_AI_GENERATED_WARDROBE_ITEMS = 4;
   const COLOR_BRIGHTNESS_MAX = 400;
 
 
@@ -1568,7 +1568,7 @@ const COLOR_DEFAULTS = {
     const directives = [];
     const errors = [];
     if (lines.length > MAX_AI_GENERATED_WARDROBE_ITEMS) {
-      errors.push(`超过每轮三件的上限，其余 ${lines.length - MAX_AI_GENERATED_WARDROBE_ITEMS} 行已忽略。`);
+      errors.push(`超过每轮四件的上限，其余 ${lines.length - MAX_AI_GENERATED_WARDROBE_ITEMS} 行已忽略。`);
     }
     lines.slice(0, MAX_AI_GENERATED_WARDROBE_ITEMS).forEach((line, index) => {
       const lineNumber = index + 1;
@@ -2421,16 +2421,20 @@ function clampByte(value) {
   function processAiOverlayPixels(imageData, colorHex) {
     const color = hexToRgb(colorHex);
     const data = imageData.data;
-    // Keep a small amount of light in near-black channels so folds remain visible.
-    const channels = [color.r, color.g, color.b].map(value => Math.max(48, value));
+    const channels = [color.r, color.g, color.b];
+    const brightness = (0.299 * color.r + 0.587 * color.g + 0.114 * color.b) / 255;
+    // At black and white, pure Overlay flattens shadows and highlights.
+    // Mix back some original gray while keeping ordinary colors close to Overlay.
+    const strength = 1 - 0.6 * Math.abs(2 * brightness - 1);
     for (let i = 0; i < data.length; i += 4) {
       if (!data[i + 3]) continue;
       for (let channel = 0; channel < 3; channel++) {
         const base = data[i + channel];
         const tint = channels[channel];
-        data[i + channel] = base <= 127.5
+        const overlay = base <= 127.5
           ? 2 * base * tint / 255
           : 255 - 2 * (255 - base) * (255 - tint) / 255;
+        data[i + channel] = base + (overlay - base) * strength;
       }
     }
     return imageData;

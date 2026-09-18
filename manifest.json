@@ -2,9 +2,9 @@
   "display_name": "纸娃娃换装",
   "loading_order": 20,
   "js": "bootstrap.js",
-  "css": "style-v0.2.30.css",
+  "css": "style-v0.2.31.css",
   "author": "青",
-  "version": "0.2.30",
+  "version": "0.2.31",
   "homePage": "https://github.com/gqing714-lang/paperdoll-wardrobe",
   "auto_update": false,
   "minimum_client_version": "1.12.0"
