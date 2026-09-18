@@ -1,7 +1,7 @@
 import { ensureBundledStatusRegex, statusRegexRuntime } from './status-regex.js';
 
 (async () => {
-  const VERSION = '0.2.27-local-test';
+  const VERSION = '0.2.28';
   const MODULE_NAME = 'st_paperdoll_wardrobe';
   const EXTENSION_ROOT = new URL('.', import.meta.url).href;
   const DEFAULT_IMAGE = new URL('./assets/body/base/body_base_001.png', import.meta.url).href;
@@ -6128,10 +6128,9 @@ function openSettingsDialog() {
           <div class="stpd-actions">
             <button type="button" class="menu_button" data-stpd-action="openPanel">打开更衣室</button>
             <button type="button" class="menu_button" data-stpd-action="importPack">导入素材图包</button>
-            <button type="button" class="menu_button" data-stpd-action="checkUpdate">检查更新</button>
+            <button type="button" class="menu_button" data-stpd-action="checkUpdate">更新说明</button>
             <button type="button" class="menu_button" data-stpd-action="cleanup">清理界面</button>
           </div>
-          <small>本地测试版：更新按钮先只显示版本提示；仓库版再接 GitHub dev 分支。</small>
         </div>
       </div>`;
     bindExtensionSettingsPanel(box);
@@ -6225,8 +6224,9 @@ function openSettingsDialog() {
           renderExtensionSettingsPanel();
         }
         if (action === 'cleanup') cleanup();
-        if (action === 'checkUpdate') alert(`纸娃娃换装本地测试版 v${VERSION}
-当前包还没有绑定 GitHub 仓库。仓库版会在这里显示 dev/main 分支更新提示。`);
+        if (action === 'checkUpdate') alert(`纸娃娃换装框架版本 v${VERSION}
+仓库地址：https://github.com/gqing714-lang/paperdoll-wardrobe
+如需检查和安装更新，请使用 SillyTavern「扩展 → 管理扩展」中的更新功能。`);
       };
     });
   }
