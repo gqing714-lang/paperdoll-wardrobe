@@ -2,7 +2,7 @@ import { ensureBundledStatusRegex, statusRegexRuntime } from './status-regex.js'
 import { getRequestHeaders } from '/script.js';
 
 (async () => {
-  const VERSION = '0.2.31';
+  const VERSION = '0.2.32';
   const MODULE_NAME = 'st_paperdoll_wardrobe';
   const EXTENSION_ROOT = new URL('.', import.meta.url).href;
   const DEFAULT_IMAGE = new URL('./assets/body/base/body_base_001.png', import.meta.url).href;
@@ -5790,6 +5790,10 @@ function openSettingsDialog() {
   function renderExtensionSettingsPanel() {
     const box = ST_DOC.querySelector('#st-paperdoll-settings');
     if (!box) return;
+    const oldContent = box.querySelector('.inline-drawer-content');
+    const wasOpen = oldContent && ST_WIN.getComputedStyle(oldContent).display !== 'none';
+    const oldToggleClass = box.querySelector('.inline-drawer-toggle')?.className;
+    const oldIconClass = box.querySelector('.inline-drawer-icon')?.className;
     const ext = getExtensionSettings();
     const promptStatus = getAiPromptStatusView();
     box.innerHTML = `
@@ -5848,6 +5852,11 @@ function openSettingsDialog() {
           </div>
         </div>
       </div>`;
+    if (wasOpen) {
+      box.querySelector('.inline-drawer-content').style.display = 'block';
+      if (oldToggleClass) box.querySelector('.inline-drawer-toggle').className = oldToggleClass;
+      if (oldIconClass) box.querySelector('.inline-drawer-icon').className = oldIconClass;
+    }
     bindExtensionSettingsPanel(box);
   }
 

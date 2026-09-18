@@ -1,5 +1,5 @@
 {
-  "version": "0.4",
+  "version": "0.5",
   "source_psd": "层级.psd（基础）+ 未命名作品 (1).psd（本次更新）",
   "canvas": {
     "width": 286,
@@ -1145,6 +1145,20 @@
         222
       ],
       "notes": ""
+    },
+    {
+      "key": "front_hair_008",
+      "display_name": "汪汪狼",
+      "slot": "front_hair",
+      "group": "hair",
+      "type": "front_hair",
+      "path": "assets/hair/front/front_hair_008.png",
+      "psd_path": "",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [34, 12, 274, 150],
+      "notes": "来自 Google Drive/纸娃娃/发型/前发/汪汪狼.png；云盘原件保留名称。"
     },
     {
       "key": "accessory_front_001",
