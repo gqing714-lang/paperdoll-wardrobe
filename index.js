@@ -2,7 +2,7 @@ import { ensureBundledStatusRegex, statusRegexRuntime } from './status-regex.js'
 import { getRequestHeaders } from '/script.js';
 
 (async () => {
-  const VERSION = '0.2.29';
+  const VERSION = '0.2.30';
   const MODULE_NAME = 'st_paperdoll_wardrobe';
   const EXTENSION_ROOT = new URL('.', import.meta.url).href;
   const DEFAULT_IMAGE = new URL('./assets/body/base/body_base_001.png', import.meta.url).href;
@@ -73,7 +73,7 @@ import { getRequestHeaders } from '/script.js';
 - 花括号内列出局部范围的基底，默认只使用这些真实范围，不要自动追加“整体”；范围名必须逐字复制，多个染色项以半角分号分隔。
 - 只有正文明确改变了整件基底的统一底色时，局部范围基底才使用“整体=#RRGGBB”；除非正文同时明确了整体底色与局部颜色，否则不要混用整体和局部。
 - “区域”“基底”“新名称”“范围”“染色范围”均为说明词，不得作为字段值原样输出。
-- 色值为六位 RGB，表示成品主要可见颜色；无需根据灰度底图预先提亮。每件一行；每轮至多三件；标签内不写解释。
+- 色值为六位 RGB，脚本会将其作为覆盖图层的颜色应用到黑白原稿；无需根据灰度底图预先提亮。每件一行；每轮至多三件；标签内不写解释。
 - 新名称可以自然命名，但不得暗示基底不具备的材质、版型、长度、图案或结构。
 - 仅穿上已有款：不输出 <新衣服>。
 - 新款已穿上：随后 <user状态> 使用新名称；仅获得未穿：不改变穿戴状态。
@@ -649,7 +649,7 @@ const COLOR_DEFAULTS = {
       brightness: clampSetting(source.brightness, 0, COLOR_BRIGHTNESS_MAX, defaults.brightness),
       contrast: clampSetting(source.contrast, 0, 200, defaults.contrast),
       preserveLines: typeof source.preserveLines === 'boolean' ? source.preserveLines : defaults.preserveLines,
-      colorMapping: source.colorMapping === 'target' ? 'target' : defaults.colorMapping,
+      colorMapping: source.colorMapping === 'overlay' ? 'overlay' : source.colorMapping === 'target' ? 'target' : defaults.colorMapping,
     };
   }
 
@@ -666,7 +666,7 @@ const COLOR_DEFAULTS = {
       brightness: clampSetting(value?.brightness, 0, COLOR_BRIGHTNESS_MAX, COLOR_DEFAULTS.brightness),
       contrast: clampSetting(value?.contrast, 0, 200, COLOR_DEFAULTS.contrast),
       preserveLines: value?.preserveLines !== false,
-      colorMapping: value?.colorMapping === 'target' ? 'target' : COLOR_DEFAULTS.colorMapping,
+      colorMapping: value?.colorMapping === 'overlay' ? 'overlay' : value?.colorMapping === 'target' ? 'target' : COLOR_DEFAULTS.colorMapping,
     };
   }
 
@@ -1616,7 +1616,7 @@ const COLOR_DEFAULTS = {
       Number(value.brightness),
       Number(value.contrast),
       value.preserveLines !== false,
-      value.colorMapping === 'target' ? 'target' : 'multiply',
+      value.colorMapping,
     ];
   }
 
@@ -1629,17 +1629,11 @@ const COLOR_DEFAULTS = {
     return JSON.stringify([layerKey, item?.id || '', aiGeneratedRecipeColorSignature(value.whole), regions]);
   }
 
-  function baseRecipeForAiGeneratedItem(baseEntry) {
-    if (baseEntry?.wardrobeItemId) {
-      return normalizeWardrobeRecipe(getWardrobeItemById(baseEntry.wardrobeItemId)?.recipe);
-    }
-    return captureWardrobeRecipeFor(state, baseEntry.layerKey, baseEntry.item);
-  }
-
-  async function buildAiGeneratedWardrobeRecipe(baseEntry, assignments) {
+  function buildAiGeneratedWardrobeRecipe(baseEntry, assignments) {
     const item = baseEntry?.item;
     if (!item) return { error: '基底素材不存在。' };
-    const recipe = baseRecipeForAiGeneratedItem(baseEntry);
+    // Each generated color starts from the original gray asset, without stacked legacy tints.
+    const recipe = { whole: cloneColorSettings(COLOR_DEFAULTS), regions: {} };
     const availableRegions = getUnambiguousDyeRegions(item);
     const resolvedAssignments = [];
     for (const assignment of assignments || []) {
@@ -1660,20 +1654,9 @@ const COLOR_DEFAULTS = {
         - (item.dyeRegions || []).findIndex(value => value.id === right.region.id);
     });
     for (const { assignment, region } of resolvedAssignments) {
-      const previous = region
-        ? normalizeDyeSettings(recipe.regions[region.id], region)
-        : cloneColorSettings(recipe.whole);
-      let profile;
-      try {
-        profile = await analyzeAiDyeSource(item, recipe, region);
-      } catch (error) {
-        return {
-          error: `无法读取基底「${baseEntry.name}」${region ? `的「${region.name}」染色区` : ''}像素：${error?.message || error} 请改用相册或 ZIP 图包素材。`,
-        };
-      }
-      const calibrated = calibrateAiTargetToOriginalDye(assignment.colorHex, profile, previous);
-      if (region) recipe.regions[region.id] = calibrated;
-      else recipe.whole = calibrated;
+      const color = { ...COLOR_DEFAULTS, colorHex: assignment.colorHex, tintStrength: 100, colorMapping: 'overlay' };
+      if (region) recipe.regions[region.id] = color;
+      else recipe.whole = color;
     }
     return { recipe: normalizeWardrobeRecipe(recipe) };
   }
@@ -1763,7 +1746,7 @@ const COLOR_DEFAULTS = {
           recipe: built.recipe,
           createdAt: Date.now(),
           updatedAt: Date.now(),
-          generatedBy: 'ai-new-clothes-v2',
+          generatedBy: 'ai-new-clothes-overlay-v1',
           generatedFrom: {
             wardrobeItemId: found.entry.wardrobeItemId || '',
             name: found.entry.name,
@@ -2144,7 +2127,7 @@ const COLOR_DEFAULTS = {
       brightness: Number(layer.brightness ?? COLOR_DEFAULTS.brightness),
       contrast: Number(layer.contrast ?? COLOR_DEFAULTS.contrast),
       preserveLines: layer.preserveLines !== false,
-      colorMapping: layer.colorMapping === 'target' ? 'target' : COLOR_DEFAULTS.colorMapping,
+      colorMapping: layer.colorMapping === 'overlay' ? 'overlay' : layer.colorMapping === 'target' ? 'target' : COLOR_DEFAULTS.colorMapping,
       followHairGroup: !!layer.followHairGroup,
     };
   }
@@ -2183,7 +2166,7 @@ const COLOR_DEFAULTS = {
         brightness: Number(snap.brightness ?? COLOR_DEFAULTS.brightness),
         contrast: Number(snap.contrast ?? COLOR_DEFAULTS.contrast),
         preserveLines: snap.preserveLines !== false,
-        colorMapping: snap.colorMapping === 'target' ? 'target' : COLOR_DEFAULTS.colorMapping,
+        colorMapping: snap.colorMapping === 'overlay' ? 'overlay' : snap.colorMapping === 'target' ? 'target' : COLOR_DEFAULTS.colorMapping,
         followHairGroup: typeof snap.followHairGroup === 'boolean' ? snap.followHairGroup : isHairLayer(key),
       });
     }
@@ -2379,7 +2362,7 @@ function clampByte(value) {
       brightness: Number(source.brightness ?? COLOR_DEFAULTS.brightness),
       contrast: Number(source.contrast ?? COLOR_DEFAULTS.contrast),
       preserveLines: source.preserveLines !== false,
-      colorMapping: source.colorMapping === 'target' ? 'target' : COLOR_DEFAULTS.colorMapping,
+      colorMapping: source.colorMapping === 'overlay' ? 'overlay' : source.colorMapping === 'target' ? 'target' : COLOR_DEFAULTS.colorMapping,
     };
   }
 
@@ -2395,300 +2378,6 @@ function clampByte(value) {
       r: parseInt(value.slice(0, 2), 16),
       g: parseInt(value.slice(2, 4), 16),
       b: parseInt(value.slice(4, 6), 16),
-    };
-  }
-
-  const aiDyeSourceDataCache = new Map();
-  const aiDyeProfileCache = new Map();
-
-  function cloneCanvasImageData(imageData) {
-    return {
-      data: new Uint8ClampedArray(imageData?.data || []),
-      width: Number(imageData?.width || 0),
-      height: Number(imageData?.height || 0),
-    };
-  }
-
-  function cacheLimitedPromise(cache, key, promise, limit) {
-    cache.set(key, promise);
-    if (cache.size > limit) {
-      const oldestKey = cache.keys().next().value;
-      if (oldestKey !== undefined) cache.delete(oldestKey);
-    }
-    return promise;
-  }
-
-  function canvasImageDataForUrl(url) {
-    if (!url) return Promise.reject(new Error('素材图片地址为空。'));
-    if (aiDyeSourceDataCache.has(url)) return aiDyeSourceDataCache.get(url);
-    const promise = (async () => {
-      const image = await loadImageForCanvas(url);
-      const canvas = ST_DOC.createElement('canvas');
-      canvas.width = image.naturalWidth || image.width;
-      canvas.height = image.naturalHeight || image.height;
-      const context = canvas.getContext('2d', { willReadFrequently: true });
-      context.drawImage(image, 0, 0);
-      return context.getImageData(0, 0, canvas.width, canvas.height);
-    })().catch(error => {
-      aiDyeSourceDataCache.delete(url);
-      throw error;
-    });
-    return cacheLimitedPromise(aiDyeSourceDataCache, url, promise, 16);
-  }
-
-  function createAiDyeProfileAccumulator() {
-    return {
-      weights: new Float64Array(256),
-      red: new Float64Array(256),
-      green: new Float64Array(256),
-      blue: new Float64Array(256),
-      totalWeight: 0,
-    };
-  }
-
-  function addImageDataToAiDyeProfile(profile, imageData, maskData = null) {
-    const data = imageData?.data;
-    const mask = maskData?.data;
-    if (!data?.length || (mask && mask.length !== data.length)) return;
-    for (let index = 0; index < data.length; index += 4) {
-      const alpha = (data[index + 3] || 0) / 255;
-      if (alpha <= 0.01) continue;
-      const maskAlpha = mask ? (mask[index + 3] || 0) / 255 : 1;
-      const weight = alpha * maskAlpha;
-      if (weight <= 0.01) continue;
-      const luminance = Math.max(0, Math.min(255, Math.round(
-        0.299 * data[index] + 0.587 * data[index + 1] + 0.114 * data[index + 2],
-      )));
-      profile.weights[luminance] += weight;
-      profile.red[luminance] += data[index] * weight;
-      profile.green[luminance] += data[index + 1] * weight;
-      profile.blue[luminance] += data[index + 2] * weight;
-      profile.totalWeight += weight;
-    }
-  }
-
-  function aiDyeProfileQuantile(profile, ratio) {
-    const wanted = profile.totalWeight * Math.max(0, Math.min(1, ratio));
-    let cumulative = 0;
-    for (let value = 0; value < 256; value++) {
-      cumulative += profile.weights[value];
-      if (cumulative >= wanted) return value;
-    }
-    return 128;
-  }
-
-  function finalizeAiDyeProfile(profile) {
-    if (!profile || profile.totalWeight <= 0.5) return null;
-    const anchor = aiDyeProfileQuantile(profile, 0.70);
-    let radius = 8;
-    let weight = 0;
-    let red = 0;
-    let green = 0;
-    let blue = 0;
-    const collect = () => {
-      weight = 0;
-      red = 0;
-      green = 0;
-      blue = 0;
-      const start = Math.max(0, anchor - radius);
-      const end = Math.min(255, anchor + radius);
-      for (let value = start; value <= end; value++) {
-        weight += profile.weights[value];
-        red += profile.red[value];
-        green += profile.green[value];
-        blue += profile.blue[value];
-      }
-    };
-    collect();
-    if (weight < profile.totalWeight * 0.02) {
-      radius = 24;
-      collect();
-    }
-    if (weight <= 0) return null;
-    return {
-      r: red / weight,
-      g: green / weight,
-      b: blue / weight,
-      luminance: anchor / 255,
-      sampledWeight: weight,
-      totalWeight: profile.totalWeight,
-    };
-  }
-
-  function aiDyeRecipeAnalysisSignature(item, recipe, region) {
-    if (!region) return ['whole'];
-    const normalized = normalizeWardrobeRecipe(recipe);
-    const regionIndex = (item?.dyeRegions || []).findIndex(value => value.id === region.id);
-    const previousRegions = (item?.dyeRegions || [])
-      .slice(0, Math.max(0, regionIndex))
-      .filter(value => Object.hasOwn(normalized.regions, value.id))
-      .map(value => [value.id, normalizeDyeSettings(normalized.regions[value.id], value)]);
-    return [cloneColorSettings(normalized.whole), previousRegions];
-  }
-
-  async function analyzeAiDyeSource(item, recipe, region = null) {
-    const variants = ['front', ...(assetVariantUrl(item, 'back') ? ['back'] : [])];
-    const variantKeys = variants.map(variant => [
-      variant,
-      stableHash(assetVariantUrl(item, variant)),
-      region ? stableHash(dyeMaskUrl(region, variant)) : '',
-    ]);
-    const cacheKey = JSON.stringify([
-      item?.packId || '',
-      item?.packItemId || item?.id || '',
-      region?.id || 'whole',
-      variantKeys,
-      aiDyeRecipeAnalysisSignature(item, recipe, region),
-    ]);
-    if (aiDyeProfileCache.has(cacheKey)) return aiDyeProfileCache.get(cacheKey);
-    const promise = (async () => {
-      const profile = createAiDyeProfileAccumulator();
-      const normalized = normalizeWardrobeRecipe(recipe);
-      const regionIndex = region
-        ? (item?.dyeRegions || []).findIndex(value => value.id === region.id)
-        : -1;
-      for (const variant of variants) {
-        const assetUrl = assetVariantUrl(item, variant);
-        const targetMaskUrl = region ? dyeMaskUrl(region, variant) : '';
-        if (!assetUrl || (region && !targetMaskUrl)) continue;
-        const baseData = cloneCanvasImageData(await canvasImageDataForUrl(assetUrl));
-        if (!baseData.data.length) continue;
-        if (region) {
-          if (colorSettingsAreActive(normalized.whole)) {
-            processCanvasPixels(baseData, normalized.whole);
-          }
-          const previousRegions = (item?.dyeRegions || []).slice(0, Math.max(0, regionIndex));
-          for (const previousRegion of previousRegions) {
-            if (!Object.hasOwn(normalized.regions, previousRegion.id)) continue;
-            const previousMaskUrl = dyeMaskUrl(previousRegion, variant);
-            if (!previousMaskUrl) continue;
-            const previousMask = await canvasImageDataForUrl(previousMaskUrl);
-            if (previousMask.data.length !== baseData.data.length) continue;
-            applyMaskedTint(
-              baseData,
-              previousMask,
-              normalizeDyeSettings(normalized.regions[previousRegion.id], previousRegion),
-            );
-          }
-          const targetMask = await canvasImageDataForUrl(targetMaskUrl);
-          if (targetMask.data.length !== baseData.data.length) continue;
-          addImageDataToAiDyeProfile(profile, baseData, targetMask);
-        } else {
-          addImageDataToAiDyeProfile(profile, baseData);
-        }
-      }
-      const finalized = finalizeAiDyeProfile(profile);
-      if (!finalized) throw new Error('素材中没有可读取的非透明像素。');
-      return finalized;
-    })().catch(error => {
-      aiDyeProfileCache.delete(cacheKey);
-      throw error;
-    });
-    return cacheLimitedPromise(aiDyeProfileCache, cacheKey, promise, 40);
-  }
-
-  function simulateOriginalDyeForRepresentative(source, target, saturation, brightness, contrast, preserveLines) {
-    const r = Number(source?.r || 0);
-    const g = Number(source?.g || 0);
-    const b = Number(source?.b || 0);
-    const luminance = Math.max(0, Math.min(1, (0.299 * r + 0.587 * g + 0.114 * b) / 255));
-    const protect = preserveLines
-      ? Math.max(0, Math.min(1, (luminance - 0.10) / 0.35))
-      : 1;
-    let nextRed = r * (1 - protect) + target.r * luminance * protect;
-    let nextGreen = g * (1 - protect) + target.g * luminance * protect;
-    let nextBlue = b * (1 - protect) + target.b * luminance * protect;
-    const gray = 0.299 * nextRed + 0.587 * nextGreen + 0.114 * nextBlue;
-    const saturationScale = saturation / 100;
-    nextRed = gray + (nextRed - gray) * saturationScale;
-    nextGreen = gray + (nextGreen - gray) * saturationScale;
-    nextBlue = gray + (nextBlue - gray) * saturationScale;
-    const brightnessScale = brightness / 100;
-    nextRed *= brightnessScale;
-    nextGreen *= brightnessScale;
-    nextBlue *= brightnessScale;
-    const contrastScale = contrast / 100;
-    return {
-      r: clampByte((nextRed - 128) * contrastScale + 128),
-      g: clampByte((nextGreen - 128) * contrastScale + 128),
-      b: clampByte((nextBlue - 128) * contrastScale + 128),
-    };
-  }
-
-  function aiDyeCalibrationScore(rendered, target, saturation, brightness, contrast) {
-    const redDelta = rendered.r - target.r;
-    const greenDelta = rendered.g - target.g;
-    const blueDelta = rendered.b - target.b;
-    const luminanceDelta = 0.299 * redDelta + 0.587 * greenDelta + 0.114 * blueDelta;
-    const colorError = 0.299 * redDelta ** 2
-      + 0.587 * greenDelta ** 2
-      + 0.114 * blueDelta ** 2
-      + 0.8 * luminanceDelta ** 2;
-    const contrastPenalty = 40 * ((contrast - 100) / 100) ** 2;
-    const saturationPenalty = 10 * ((saturation - 100) / 100) ** 2;
-    const highBrightnessPenalty = brightness > 200
-      ? 5 * ((brightness - 200) / 200) ** 2
-      : 0;
-    return colorError + contrastPenalty + saturationPenalty + highBrightnessPenalty;
-  }
-
-  function calibrateAiTargetToOriginalDye(targetHex, profile, previousSettings) {
-    const target = hexToRgb(targetHex);
-    const preserveLines = previousSettings?.preserveLines !== false;
-    let best = null;
-    const consider = (saturation, brightness, contrast) => {
-      const safeSaturation = Math.max(0, Math.min(200, Math.round(saturation)));
-      const safeBrightness = Math.max(0, Math.min(COLOR_BRIGHTNESS_MAX, Math.round(brightness)));
-      const safeContrast = Math.max(0, Math.min(200, Math.round(contrast)));
-      const rendered = simulateOriginalDyeForRepresentative(
-        profile,
-        target,
-        safeSaturation,
-        safeBrightness,
-        safeContrast,
-        preserveLines,
-      );
-      const score = aiDyeCalibrationScore(rendered, target, safeSaturation, safeBrightness, safeContrast);
-      if (!best || score < best.score) {
-        best = {
-          score,
-          saturation: safeSaturation,
-          brightness: safeBrightness,
-          contrast: safeContrast,
-        };
-      }
-    };
-    for (let saturation = 40; saturation <= 200; saturation += 10) {
-      for (let brightness = 0; brightness <= COLOR_BRIGHTNESS_MAX; brightness += 10) {
-        for (let contrast = 40; contrast <= 200; contrast += 10) {
-          consider(saturation, brightness, contrast);
-        }
-      }
-    }
-    const coarse = { ...best };
-    for (let saturation = coarse.saturation - 10; saturation <= coarse.saturation + 10; saturation += 2) {
-      for (let brightness = coarse.brightness - 10; brightness <= coarse.brightness + 10; brightness += 2) {
-        for (let contrast = coarse.contrast - 10; contrast <= coarse.contrast + 10; contrast += 2) {
-          consider(saturation, brightness, contrast);
-        }
-      }
-    }
-    const refined = { ...best };
-    for (let saturation = refined.saturation - 2; saturation <= refined.saturation + 2; saturation++) {
-      for (let brightness = refined.brightness - 2; brightness <= refined.brightness + 2; brightness++) {
-        for (let contrast = refined.contrast - 2; contrast <= refined.contrast + 2; contrast++) {
-          consider(saturation, brightness, contrast);
-        }
-      }
-    }
-    return {
-      colorHex: targetHex.toUpperCase(),
-      tintStrength: 100,
-      saturation: best.saturation,
-      brightness: best.brightness,
-      contrast: best.contrast,
-      preserveLines,
-      colorMapping: 'multiply',
     };
   }
 
@@ -2729,7 +2418,26 @@ function clampByte(value) {
     return channel + (luminance - anchor) * 255;
   }
 
+  function processAiOverlayPixels(imageData, colorHex) {
+    const color = hexToRgb(colorHex);
+    const data = imageData.data;
+    // Keep a small amount of light in near-black channels so folds remain visible.
+    const channels = [color.r, color.g, color.b].map(value => Math.max(48, value));
+    for (let i = 0; i < data.length; i += 4) {
+      if (!data[i + 3]) continue;
+      for (let channel = 0; channel < 3; channel++) {
+        const base = data[i + channel];
+        const tint = channels[channel];
+        data[i + channel] = base <= 127.5
+          ? 2 * base * tint / 255
+          : 255 - 2 * (255 - base) * (255 - tint) / 255;
+      }
+    }
+    return imageData;
+  }
+
   function processCanvasPixels(imageData, settings, maskData = null) {
+    if (settings.colorMapping === 'overlay') return processAiOverlayPixels(imageData, settings.colorHex);
     const data = imageData.data;
     const target = hexToRgb(settings.colorHex);
     const tintStrength = Math.max(0, Math.min(100, settings.tintStrength)) / 100;
@@ -4056,8 +3764,6 @@ function clampByte(value) {
       await hydratePackAssets(targetId);
       pendingPackImport = null;
       processedImageCache.clear();
-      aiDyeSourceDataCache.clear();
-      aiDyeProfileCache.clear();
       saveState();
       renderDialogBody();
       refreshAll({ save: false });
@@ -4089,8 +3795,6 @@ function clampByte(value) {
       revokePackRuntimeUrls(packId);
       repairPlanItemReferences();
       processedImageCache.clear();
-      aiDyeSourceDataCache.clear();
-      aiDyeProfileCache.clear();
       saveState();
       renderDialogBody();
       refreshAll({ save: false });
@@ -4208,6 +3912,10 @@ function clampByte(value) {
     if (!entry || !item || !layer) return false;
     const recipe = normalizeWardrobeRecipe(entry.recipe);
     Object.assign(layer, cloneColorSettings(recipe.whole));
+    if (isHairLayer(entry.layerKey) && (recipe.whole.colorMapping === 'overlay'
+      || Object.values(recipe.regions).some(value => value?.colorMapping === 'overlay'))) {
+      layer.followHairGroup = false;
+    }
     for (const region of item.dyeRegions || []) {
       const key = dyeSettingKey(item, region);
       delete state.dyeSettings[key];
@@ -4734,7 +4442,10 @@ function clampByte(value) {
   }
 
   function writableColorScopeSettings(context = currentColorScopeContext()) {
-    return context.region ? ensureDyeSettings(context.item, context.region) : context.layer;
+    const settings = context.region ? ensureDyeSettings(context.item, context.region) : context.layer;
+    // Editing through the manual controls switches this scope back to manual dyeing.
+    if (settings.colorMapping === 'overlay') settings.colorMapping = COLOR_DEFAULTS.colorMapping;
+    return settings;
   }
 
   function colorScopeSelectorHtml(context) {
@@ -5947,7 +5658,6 @@ function openSettingsDialog() {
     try { clearAiStatePrompt(); } catch (_) {}
     try { revokePackRuntimeUrls(); } catch (_) {}
     try { processedImageCache.clear(); } catch (_) {}
-    try { aiDyeSourceDataCache.clear(); aiDyeProfileCache.clear(); } catch (_) {}
     try {
       const src = ST_WIN.__xjPaperdollPersonaEventSource;
       const type = ST_WIN.__xjPaperdollPersonaEventType;
