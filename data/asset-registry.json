@@ -1,0 +1,1416 @@
+{
+  "version": "0.4",
+  "source_psd": "层级.psd（基础）+ 未命名作品 (1).psd（本次更新）",
+  "canvas": {
+    "width": 286,
+    "height": 222
+  },
+  "assets": [
+    {
+      "key": "braid_001_left_base",
+      "display_name": "左辫 侧长（底）",
+      "slot": "braid_left_base",
+      "group": "hair",
+      "type": "braid",
+      "path": "assets/hair/braid/braid_001_left_base.png",
+      "psd_path": "辫子（底）/左辫/侧长",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "与 braid_001_left_front 组成左辫套组。"
+    },
+    {
+      "key": "braid_001_right_base",
+      "display_name": "右辫 侧长（底）",
+      "slot": "braid_right_base",
+      "group": "hair",
+      "type": "braid",
+      "path": "assets/hair/braid/braid_001_right_base.png",
+      "psd_path": "辫子（底）/右辫/侧长",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "与 braid_001_right_front 组成右辫套组。"
+    },
+    {
+      "key": "back_hair_002_base",
+      "display_name": "松麻花（底）",
+      "slot": "back_hair_base",
+      "group": "hair",
+      "type": "back_hair",
+      "path": "assets/hair/back/back_hair_002_base.png",
+      "psd_path": "后发（底）/松麻花",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "与 back_hair_002_front 组成后发套组。"
+    },
+    {
+      "key": "back_hair_003_base",
+      "display_name": "散发（底）",
+      "slot": "back_hair_base",
+      "group": "hair",
+      "type": "back_hair",
+      "path": "assets/hair/back/back_hair_003_base.png",
+      "psd_path": "后发（底）/散发",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "与 back_hair_003_front 组成后发套组。"
+    },
+    {
+      "key": "body_base_001",
+      "display_name": "默认人模",
+      "slot": "body",
+      "group": "body",
+      "type": "body_base",
+      "path": "assets/body/base/body_base_001.png",
+      "psd_path": "人模组/人模",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "纸娃娃人模。"
+    },
+    {
+      "key": "face_mark_001",
+      "display_name": "嘴角痣",
+      "slot": "face_mark",
+      "group": "body",
+      "type": "face_mark",
+      "path": "assets/body/face_mark/face_mark_001.png",
+      "psd_path": "人模组/面部特征/纹身/嘴角痣",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "面饰层。"
+    },
+    {
+      "key": "face_mark_002",
+      "display_name": "右泪痣",
+      "slot": "face_mark",
+      "group": "body",
+      "type": "face_mark",
+      "path": "assets/body/face_mark/face_mark_002.png",
+      "psd_path": "人模组/面部特征/纹身/右泪痣",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "面饰层。"
+    },
+    {
+      "key": "face_mark_003",
+      "display_name": "左泪痣",
+      "slot": "face_mark",
+      "group": "body",
+      "type": "face_mark",
+      "path": "assets/body/face_mark/face_mark_003.png",
+      "psd_path": "人模组/面部特征/纹身/左泪痣",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "面饰层。"
+    },
+    {
+      "key": "face_mark_004",
+      "display_name": "眼下痣",
+      "slot": "face_mark",
+      "group": "body",
+      "type": "face_mark",
+      "path": "assets/body/face_mark/face_mark_004.png",
+      "psd_path": "人模组/面部特征/纹身/眼下痣",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "面饰层。"
+    },
+    {
+      "key": "face_mark_005",
+      "display_name": "左眼下痣",
+      "slot": "face_mark",
+      "group": "body",
+      "type": "face_mark",
+      "path": "assets/body/face_mark/face_mark_005.png",
+      "psd_path": "人模组/面部特征/纹身/左眼下痣",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "面饰层。"
+    },
+    {
+      "key": "face_mark_006",
+      "display_name": "右眼下痣",
+      "slot": "face_mark",
+      "group": "body",
+      "type": "face_mark",
+      "path": "assets/body/face_mark/face_mark_006.png",
+      "psd_path": "人模组/面部特征/纹身/右眼下痣",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "面饰层。"
+    },
+    {
+      "key": "panty_001",
+      "display_name": "内裤1号",
+      "slot": "panty",
+      "group": "outfit",
+      "type": "panty",
+      "path": "assets/outfit/panty/panty_001.png",
+      "psd_path": "打底/内裤/内裤1号",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "panty_002",
+      "display_name": "内裤2号",
+      "slot": "panty",
+      "group": "outfit",
+      "type": "panty",
+      "path": "assets/outfit/panty/panty_002.png",
+      "psd_path": "打底/内裤/内裤2号",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "underwear_001",
+      "display_name": "吊带",
+      "slot": "underwear",
+      "group": "outfit",
+      "type": "underwear",
+      "path": "assets/outfit/underwear/underwear_001.png",
+      "psd_path": "打底/内衣/吊带",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "underwear_002",
+      "display_name": "裹胸",
+      "slot": "underwear",
+      "group": "outfit",
+      "type": "underwear",
+      "path": "assets/outfit/underwear/underwear_002.png",
+      "psd_path": "打底/内衣/裹胸",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "underwear_003",
+      "display_name": "连体",
+      "slot": "underwear",
+      "group": "outfit",
+      "type": "underwear",
+      "path": "assets/outfit/underwear/underwear_003.png",
+      "psd_path": "打底/内衣/连体",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "underwear_004",
+      "display_name": "系脖",
+      "slot": "underwear",
+      "group": "outfit",
+      "type": "underwear",
+      "path": "assets/outfit/underwear/underwear_004.png",
+      "psd_path": "打底/内衣/系脖",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "wrist_accessory_001",
+      "display_name": "手饰01",
+      "slot": "wrist_accessory",
+      "group": "outfit",
+      "type": "wrist_accessory",
+      "path": "assets/outfit/wrist_accessory/wrist_accessory_001.png",
+      "psd_path": "Pasted_Image_5.psd/手饰",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        28,
+        84,
+        90,
+        113
+      ],
+      "notes": "新增手饰层素材；层级位于内衣上、上衣下。"
+    },
+    {
+      "key": "socks_001",
+      "display_name": "过膝袜",
+      "slot": "socks",
+      "group": "outfit",
+      "type": "socks",
+      "path": "assets/outfit/socks/socks_001.png",
+      "psd_path": "穿着组/袜子/过膝袜",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "socks_002",
+      "display_name": "小腿袜",
+      "slot": "socks",
+      "group": "outfit",
+      "type": "socks",
+      "path": "assets/outfit/socks/socks_002.png",
+      "psd_path": "穿着组/袜子/小腿袜",
+      "visible_in_psd": false,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "PSD 隐藏层，也已导出。"
+    },
+    {
+      "key": "shoes_001",
+      "display_name": "皮鞋",
+      "slot": "shoes",
+      "group": "outfit",
+      "type": "shoes",
+      "path": "assets/outfit/shoes/shoes_001.png",
+      "psd_path": "穿着组/鞋子/皮鞋",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "bottom_001",
+      "display_name": "短裙",
+      "slot": "bottom",
+      "group": "outfit",
+      "type": "bottom",
+      "path": "assets/outfit/bottom/bottom_001.png",
+      "psd_path": "穿着组/下装/短裙",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "bottom_002",
+      "display_name": "短裤",
+      "slot": "bottom",
+      "group": "outfit",
+      "type": "bottom",
+      "path": "assets/outfit/bottom/bottom_002.png",
+      "psd_path": "穿着组/下装/短裤",
+      "visible_in_psd": false,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "PSD 隐藏层，也已导出。"
+    },
+    {
+      "key": "top_001",
+      "display_name": "宽衬衫",
+      "slot": "top",
+      "group": "outfit",
+      "type": "top",
+      "path": "assets/outfit/top/top_001.png",
+      "psd_path": "穿着组/上装/宽衬衫",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "top_002",
+      "display_name": "窄衬衫",
+      "slot": "top",
+      "group": "outfit",
+      "type": "top",
+      "path": "assets/outfit/top/top_002.png",
+      "psd_path": "穿着组/上装/窄衬衫",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "coat_001",
+      "display_name": "外套1号",
+      "slot": "coat",
+      "group": "outfit",
+      "type": "coat",
+      "path": "assets/outfit/coat/coat_001.png",
+      "psd_path": "穿着组/外套/外套1号",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "dress_001",
+      "display_name": "女仆装",
+      "slot": "dress",
+      "group": "outfit",
+      "type": "dress",
+      "path": "assets/outfit/dress/dress_001.png",
+      "psd_path": "穿着组/连衣裙/女仆装",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "braid_001_left_front",
+      "display_name": "左辫 侧长（前）",
+      "slot": "braid_left",
+      "group": "hair",
+      "type": "braid",
+      "path": "assets/hair/braid/braid_001_left_front.png",
+      "psd_path": "辫子（前）/左辫/侧长",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "与 braid_001_left_base 组成左辫套组。"
+    },
+    {
+      "key": "braid_001_right_front",
+      "display_name": "右辫 侧长（前）",
+      "slot": "braid_right",
+      "group": "hair",
+      "type": "braid",
+      "path": "assets/hair/braid/braid_001_right_front.png",
+      "psd_path": "辫子（前）/右辫/侧长",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "与 braid_001_right_base 组成右辫套组。"
+    },
+    {
+      "key": "back_hair_001_front",
+      "display_name": "扎发（前）",
+      "slot": "back_hair",
+      "group": "hair",
+      "type": "back_hair",
+      "path": "assets/hair/back/back_hair_001_front.png",
+      "psd_path": "后发（前）/扎发",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "当前仅有前层，暂无对应底层。"
+    },
+    {
+      "key": "back_hair_002_front",
+      "display_name": "松麻花（前）",
+      "slot": "back_hair",
+      "group": "hair",
+      "type": "back_hair",
+      "path": "assets/hair/back/back_hair_002_front.png",
+      "psd_path": "后发（前）/松麻花",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "与 back_hair_002_base 组成后发套组。"
+    },
+    {
+      "key": "back_hair_003_front",
+      "display_name": "散发（前）",
+      "slot": "back_hair",
+      "group": "hair",
+      "type": "back_hair",
+      "path": "assets/hair/back/back_hair_003_front.png",
+      "psd_path": "后发（前）/散发",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "与 back_hair_003_base 组成后发套组。"
+    },
+    {
+      "key": "mouth_001",
+      "display_name": "闭嘴",
+      "slot": "mouth",
+      "group": "face",
+      "type": "mouth",
+      "path": "assets/face/mouth/mouth_001.png",
+      "psd_path": "嘴巴（全部替换现有嘴巴）/闭嘴",
+      "visible_in_psd": false,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "由本次 PSD 全部替换。"
+    },
+    {
+      "key": "mouth_002",
+      "display_name": "微笑",
+      "slot": "mouth",
+      "group": "face",
+      "type": "mouth",
+      "path": "assets/face/mouth/mouth_002.png",
+      "psd_path": "嘴巴（全部替换现有嘴巴）/微笑",
+      "visible_in_psd": false,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "由本次 PSD 全部替换。"
+    },
+    {
+      "key": "mouth_003",
+      "display_name": "撇嘴",
+      "slot": "mouth",
+      "group": "face",
+      "type": "mouth",
+      "path": "assets/face/mouth/mouth_003.png",
+      "psd_path": "嘴巴（全部替换现有嘴巴）/撇嘴",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "由本次 PSD 全部替换。"
+    },
+    {
+      "key": "mouth_004",
+      "display_name": "抿嘴",
+      "slot": "mouth",
+      "group": "face",
+      "type": "mouth",
+      "path": "assets/face/mouth/mouth_004.png",
+      "psd_path": "嘴巴（全部替换现有嘴巴）/抿嘴",
+      "visible_in_psd": false,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "由本次 PSD 全部替换。"
+    },
+    {
+      "key": "mouth_005",
+      "display_name": "张嘴",
+      "slot": "mouth",
+      "group": "face",
+      "type": "mouth",
+      "path": "assets/face/mouth/mouth_005.png",
+      "psd_path": "嘴巴（全部替换现有嘴巴）/张嘴",
+      "visible_in_psd": false,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "由本次 PSD 全部替换。"
+    },
+    {
+      "key": "mouth_006",
+      "display_name": "哇",
+      "slot": "mouth",
+      "group": "face",
+      "type": "mouth",
+      "path": "assets/face/mouth/mouth_006.png",
+      "psd_path": "嘴巴（全部替换现有嘴巴）/哇",
+      "visible_in_psd": false,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "由本次 PSD 全部替换。"
+    },
+    {
+      "key": "pupil_001",
+      "display_name": "普通",
+      "slot": "pupil",
+      "group": "face",
+      "type": "pupil",
+      "path": "assets/face/pupil/pupil_001.png",
+      "psd_path": "人模组/瞳孔/普通",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "pupil_002",
+      "display_name": "左瞥",
+      "slot": "pupil",
+      "group": "face",
+      "type": "pupil",
+      "path": "assets/face/pupil/pupil_002.png",
+      "psd_path": "人模组/瞳孔/左瞥",
+      "visible_in_psd": false,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "PSD 隐藏层，也已导出。"
+    },
+    {
+      "key": "eye_highlight_001",
+      "display_name": "高光",
+      "slot": "eye_highlight",
+      "group": "face",
+      "type": "eye_highlight",
+      "path": "assets/face/eye_highlight/eye_highlight_001.png",
+      "psd_path": "人模组/眼睛高光/高光",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "eye_highlight_002",
+      "display_name": "眼中横",
+      "slot": "eye_highlight",
+      "group": "face",
+      "type": "eye_highlight",
+      "path": "assets/face/eye_highlight/eye_highlight_002.png",
+      "psd_path": "人模组/眼睛高光/眼中横",
+      "visible_in_psd": false,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "PSD 隐藏层，也已导出。"
+    },
+    {
+      "key": "eye_highlight_003",
+      "display_name": "爱心",
+      "slot": "eye_highlight",
+      "group": "face",
+      "type": "eye_highlight",
+      "path": "assets/face/eye_highlight/eye_highlight_003.png",
+      "psd_path": "人模组/眼睛高光/爱心",
+      "visible_in_psd": false,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "PSD 隐藏层，也已导出。"
+    },
+    {
+      "key": "eyelid_blink_001_strip",
+      "display_name": "眼皮三帧横排",
+      "slot": "eyelid",
+      "group": "face",
+      "type": "eyelid_strip",
+      "path": "assets/face/eyelid/eyelid_blink_001_strip.png",
+      "psd_path": "眼皮（横向拼合替换）/一帧 + 二帧 + 三帧",
+      "visible_in_psd": true,
+      "canvas_width": 858,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        858,
+        222
+      ],
+      "notes": "本次 PSD 的睁眼、半闭、闭眼三帧横向拼合。"
+    },
+    {
+      "key": "eyebrow_001",
+      "display_name": "普通",
+      "slot": "eyebrow",
+      "group": "face",
+      "type": "eyebrow",
+      "path": "assets/face/eyebrow/eyebrow_001.png",
+      "psd_path": "人模组/眉毛/普通",
+      "visible_in_psd": false,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "PSD 隐藏层，也已导出。"
+    },
+    {
+      "key": "eyebrow_002",
+      "display_name": "八字眉",
+      "slot": "eyebrow",
+      "group": "face",
+      "type": "eyebrow",
+      "path": "assets/face/eyebrow/eyebrow_002.png",
+      "psd_path": "人模组/眉毛/八字眉",
+      "visible_in_psd": false,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "PSD 隐藏层，也已导出。"
+    },
+    {
+      "key": "eyebrow_003",
+      "display_name": "皱眉",
+      "slot": "eyebrow",
+      "group": "face",
+      "type": "eyebrow",
+      "path": "assets/face/eyebrow/eyebrow_003.png",
+      "psd_path": "人模组/眉毛/皱眉",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "side_hair_001",
+      "display_name": "细外翻",
+      "slot": "side_hair",
+      "group": "hair",
+      "type": "side_hair",
+      "path": "assets/hair/side/side_hair_001.png",
+      "psd_path": "鬓发/细外翻",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "side_hair_002",
+      "display_name": "细内扣",
+      "slot": "side_hair",
+      "group": "hair",
+      "type": "side_hair",
+      "path": "assets/hair/side/side_hair_002.png",
+      "psd_path": "鬓发/细内扣",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "side_hair_003",
+      "display_name": "钝直鬓发",
+      "slot": "side_hair",
+      "group": "hair",
+      "type": "side_hair",
+      "path": "assets/hair/side/side_hair_003.png",
+      "psd_path": "鬓发/钝直鬓发",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "side_hair_004",
+      "display_name": "短鬓发",
+      "slot": "side_hair",
+      "group": "hair",
+      "type": "side_hair",
+      "path": "assets/hair/side/side_hair_004.png",
+      "psd_path": "鬓发/短鬓发",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "side_hair_005",
+      "display_name": "长鬓发",
+      "slot": "side_hair",
+      "group": "hair",
+      "type": "side_hair",
+      "path": "assets/hair/side/side_hair_005.png",
+      "psd_path": "鬓发/长鬓发",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "neck_accessory_001",
+      "display_name": "领结",
+      "slot": "neck_accessory",
+      "group": "outfit",
+      "type": "neck_accessory",
+      "path": "assets/outfit/neck_accessory/neck_accessory_001.png",
+      "psd_path": "颈饰/领结",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "层级：鬓发之后、发绳类之前、前发之前。"
+    },
+    {
+      "key": "front_hair_001",
+      "display_name": "七三分",
+      "slot": "front_hair",
+      "group": "hair",
+      "type": "front_hair",
+      "path": "assets/hair/front/front_hair_001.png",
+      "psd_path": "前发/七三分",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "front_hair_002",
+      "display_name": "经典长鬓",
+      "slot": "front_hair",
+      "group": "hair",
+      "type": "front_hair",
+      "path": "assets/hair/front/front_hair_002.png",
+      "psd_path": "前发/经典长鬓",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "front_hair_003",
+      "display_name": "经典中鬓",
+      "slot": "front_hair",
+      "group": "hair",
+      "type": "front_hair",
+      "path": "assets/hair/front/front_hair_003.png",
+      "psd_path": "前发/经典中鬓",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "front_hair_004",
+      "display_name": "经典短鬓",
+      "slot": "front_hair",
+      "group": "hair",
+      "type": "front_hair",
+      "path": "assets/hair/front/front_hair_004.png",
+      "psd_path": "前发/经典短鬓",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "front_hair_005",
+      "display_name": "齐刘海",
+      "slot": "front_hair",
+      "group": "hair",
+      "type": "front_hair",
+      "path": "assets/hair/front/front_hair_005.png",
+      "psd_path": "前发/齐刘海",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "front_hair_006",
+      "display_name": "片目系",
+      "slot": "front_hair",
+      "group": "hair",
+      "type": "front_hair",
+      "path": "assets/hair/front/front_hair_006.png",
+      "psd_path": "前发/片目系",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "front_hair_007",
+      "display_name": "外翻包脸",
+      "slot": "front_hair",
+      "group": "hair",
+      "type": "front_hair",
+      "path": "assets/hair/front/front_hair_007.png",
+      "psd_path": "前发/外翻包脸",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": ""
+    },
+    {
+      "key": "accessory_front_001",
+      "display_name": "发箍",
+      "slot": "accessory1",
+      "group": "accessory",
+      "type": "front_accessory",
+      "path": "assets/accessory/front/accessory_front_001.png",
+      "psd_path": "配饰123/发箍",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "暂定前层配饰。"
+    },
+    {
+      "key": "accessory_front_002",
+      "display_name": "呆毛",
+      "slot": "accessory2",
+      "group": "accessory",
+      "type": "front_accessory",
+      "path": "assets/accessory/front/accessory_front_002.png",
+      "psd_path": "配饰123/呆毛",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "暂定前层配饰；以后也可归入 hair_deco。"
+    },
+    {
+      "key": "accessory_front_003",
+      "display_name": "眼镜",
+      "slot": "accessory3",
+      "group": "accessory",
+      "type": "front_accessory",
+      "path": "assets/accessory/front/accessory_front_003.png",
+      "psd_path": "配饰123/眼镜",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "暂定前层配饰。"
+    },
+    {
+      "key": "hair_deco_001",
+      "display_name": "蝴蝶结",
+      "slot": "hair_deco",
+      "group": "hair",
+      "type": "hair_deco",
+      "path": "assets/hair/deco/hair_deco_001.png",
+      "psd_path": "后发饰组/蝴蝶结",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "后发饰 / 发饰中层。"
+    },
+    {
+      "key": "head_ears_001",
+      "display_name": "兽耳",
+      "slot": "head_ears",
+      "group": "hair",
+      "type": "head_ears",
+      "path": "assets/hair/head_ears/head_ears_001.png",
+      "psd_path": "兽耳/图层 77",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "原 PSD 名为「图层 77」，已改成稳定 key。"
+    },
+    {
+      "key": "background_001",
+      "display_name": "背景",
+      "slot": "background",
+      "group": "system",
+      "type": "background",
+      "path": "assets/system/background/background_001.png",
+      "psd_path": "背景",
+      "visible_in_psd": false,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "本次 PSD 中为隐藏层；像素内容与原背景一致。"
+    },
+    {
+      "key": "shadow_001",
+      "display_name": "影子",
+      "slot": "shadow",
+      "group": "system",
+      "type": "shadow",
+      "path": "assets/system/shadow/shadow_001.png",
+      "psd_path": "配饰12/影子",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "可作为底部辅助层；扩展第一版可默认开启或暂不接入。"
+    },
+    {
+      "key": "eye_shape_001",
+      "display_name": "眼白",
+      "slot": "eye_shape",
+      "group": "face",
+      "type": "eye_shape",
+      "path": "assets/face/eye_shape/eye_shape_001.png",
+      "psd_path": "眼白（加入眼型/眼白栏目）",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "本次 PSD 新增。"
+    },
+    {
+      "key": "pupil_003",
+      "display_name": "上挑",
+      "slot": "pupil",
+      "group": "face",
+      "type": "pupil",
+      "path": "assets/face/pupil/pupil_003.png",
+      "psd_path": "上挑（瞳孔素材增加+）",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "本次 PSD 新增。"
+    },
+    {
+      "key": "face_effect_base_001",
+      "display_name": "脸红",
+      "slot": "face_effect_base",
+      "group": "face",
+      "type": "face_effect_base",
+      "path": "assets/face/face_effect_base/face_effect_base_001.png",
+      "psd_path": "底效/脸红",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "五官之上的面部底效。"
+    },
+    {
+      "key": "face_effect_base_002",
+      "display_name": "黑脸",
+      "slot": "face_effect_base",
+      "group": "face",
+      "type": "face_effect_base",
+      "path": "assets/face/face_effect_base/face_effect_base_002.png",
+      "psd_path": "底效/黑脸",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "五官之上的面部底效。"
+    },
+    {
+      "key": "face_effect_base_003",
+      "display_name": "紫脸",
+      "slot": "face_effect_base",
+      "group": "face",
+      "type": "face_effect_base",
+      "path": "assets/face/face_effect_base/face_effect_base_003.png",
+      "psd_path": "底效/紫脸",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "五官之上的面部底效。"
+    },
+    {
+      "key": "face_effect_top_001",
+      "display_name": "眼泪",
+      "slot": "face_effect_top",
+      "group": "face",
+      "type": "face_effect_top",
+      "path": "assets/face/face_effect_top/face_effect_top_001.png",
+      "psd_path": "脸部效果/眼泪",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "覆盖面部底效的面部顶效。"
+    },
+    {
+      "key": "face_effect_top_002",
+      "display_name": "汗滴",
+      "slot": "face_effect_top",
+      "group": "face",
+      "type": "face_effect_top",
+      "path": "assets/face/face_effect_top/face_effect_top_002.png",
+      "psd_path": "脸部效果/汗滴",
+      "visible_in_psd": true,
+      "canvas_width": 286,
+      "canvas_height": 222,
+      "bbox": [
+        0,
+        0,
+        286,
+        222
+      ],
+      "notes": "覆盖面部底效的面部顶效。"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "format": "st-paperdoll-pack",
+  "formatVersion": 1,
+  "id": "replace-with-pack-id",
+  "name": "请填写图包显示名",
+  "version": "1.0.0",
+  "author": "请填写作者名",
+  "canvas": {
+    "width": 286,
+    "height": 222
+  },
+  "items": [
+    {
+      "id": "replace-with-item-id",
+      "name": "请填写部件显示名",
+      "slot": "top",
+      "front": "item/front.png",
+      "back": "item/back.png",
+      "dyeRegions": [
+        {
+          "id": "main",
+          "name": "主布料",
+          "defaultColor": "#eeeeee",
+          "tintStrength": 100,
+          "saturation": 100,
+          "brightness": 100,
+          "contrast": 100,
+          "preserveLines": true,
+          "frontMask": "item/dye_main_front.png",
+          "backMask": "item/dye_main_back.png"
+        }
+      ]
+    }
+  ]
+}
