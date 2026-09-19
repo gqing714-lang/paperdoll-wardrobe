@@ -5,7 +5,7 @@
 | 位置 | 内容 | 版本来源 |
 | --- | --- | --- |
 | 仓库根目录 | SillyTavern 扩展本体；`index.js`、`bootstrap.js`、样式、正则、依赖等 | `manifest.json` 的 `version`，当前 `0.2.32` |
-| `assets/` 和 `data/asset-registry.json` | 扩展自带素材及其索引 | `assets/pack-version.json` 的 `version`，当前 `0.1.1`，独立记录 |
+| `assets/` 和 `data/asset-registry.json` | 扩展自带素材及其索引 | `assets/pack-version.json` 的 `version`，当前 `0.1.2`，独立记录 |
 | `packs/` | 以后发布的独立 ZIP 图包 | 每个图包自身 `pack.json` 的 `version` |
 | `examples/图包模板/` | 制作示例 | 示例版本不代表正式图包版本 |
 
@@ -13,4 +13,4 @@
 
 目前 `assets/pack-version.json` 只记录版本，扩展尚未读取它。扩展设置页也尚未同时显示框架版本与内置图包版本；已导入图包的版本则由现有图包列表显示。`manifest.json` 暂时保留 `auto_update: false`；扩展里的「检查更新」按钮会调用 SillyTavern 自带的更新接口，检查并拉取这个仓库的新提交，更新完成后可直接刷新页面。
 
-以后从 Google Drive 取得素材，核对文件与图包配置后，再放入 `packs/` 发布。v0.2.32 先按内置素材既有编号引入一张前发图；Drive 保留原文件名，扩展显示原名称，仓库使用 `front_hair_008.png`。v0.2.30 已为 AI 剧情款接入 Overlay（覆盖）染色，v0.2.31 修正极端色的细节损失；多区域名称及前后片蒙版由图包声明，模型只为已声明区域选颜色。手动高级染色仍用原算法。
+以后从 Google Drive 取得素材，核对文件与图包配置后，再放入 `packs/` 发布。v0.2.32 先按内置素材既有编号引入一张前发图；内置素材 v0.1.2 已将其替换成云盘「汪汪狼2.0.png」，保留部件编号、穿戴选择与扩展显示名。v0.2.30 已为 AI 剧情款接入 Overlay（覆盖）染色，v0.2.31 修正极端色的细节损失；多区域名称及前后片蒙版由图包声明，模型只为已声明区域选颜色。手动高级染色仍用原算法。
